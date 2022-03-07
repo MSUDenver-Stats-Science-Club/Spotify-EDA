@@ -6,7 +6,7 @@
 #'
 #' @return `NULL`.
 #' @export
-spotify_auth <- function() {
+authenticate <- function() {
 
   ## Adding in code that informs the user of what's happening
   usethis::ui_info("Attempting to authenticate...")
@@ -53,12 +53,6 @@ spotify_auth <- function() {
     usethis::ui_info("Request Successful!")
 
     request_content <- request %>% httr::content()
-
-    ## Try to create a timer to let user know when token expires
-    # request_time <- stringr::str_extract(Sys.time(), "[[:digit:]]{2}:[[:digit:]]{2}:[[:digit:]]{2}") %>% lubridate::hms()
-
-    # print(paste(
-    #   format(as.POSIXct(Sys.time()), format = "%H:%M:%S")))
 
     token_header <- httr::add_headers(
       "Authorization" = paste0("Bearer ", request_content$access_token)
